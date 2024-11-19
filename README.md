@@ -3,7 +3,6 @@
 This is a PyTorch implementation of **Stepwise Diffusion Policy Optimization (SDPO)** from our paper [*Aligning Few-Step Diffusion Models with Dense Reward Difference Learning*](https://arxiv.org/abs/2411.11727).
 
 > Aligning text-to-image diffusion models with downstream objectives (e.g., aesthetic quality or user preferences) is essential for their practical applications. However, standard alignment methods often struggle with ***step generalization*** when directly applied to ***few-step diffusion models***, leading to inconsistent performance across different denoising step scenarios. To address this, we introduce SDPO, which facilitates stepwise optimization of few-step diffusion models through dense reward difference learning, consistently exhibiting superior performance in reward-based alignment across all sampling steps.
->
 
 - **SDPO framework:**
 
