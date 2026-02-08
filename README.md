@@ -79,7 +79,6 @@ We provide pre-configured setups for multiple reward functions. Choose one of th
 💡 **Tip**: You can modify hyperparameters in the configuration files as needed:
 
 - **[config/base_sdpo.py](config/base_sdpo.py)** - Base configuration with default values
-
 - **[config/config_sdpo.py](config/config_sdpo.py)** - Task-specific configurations
 
 > **Note**: Values in [config/base_sdpo.py](config/base_sdpo.py) override those in [config/config_sdpo.py](config/config_sdpo.py). The default configuration is optimized for 4× GPUs with 24GB+ memory each. Adjust batch sizes and gradient accumulation steps based on your hardware.
