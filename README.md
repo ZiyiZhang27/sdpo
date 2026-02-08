@@ -1,46 +1,56 @@
 # Stepwise Diffusion Policy Optimization (SDPO)
 
-This is a PyTorch implementation of **Stepwise Diffusion Policy Optimization (SDPO)** from our paper [*Aligning Few-Step Diffusion Models with Dense Reward Difference Learning*](https://arxiv.org/abs/2411.11727).
+<div align="left">
+<a href="#" target="_blank"><img src="https://img.shields.io/badge/Paper_Link-IEEE_TPAMI-blue"></a>
+  <a href="https://arxiv.org/pdf/2411.11727" target="_blank"><img src="https://img.shields.io/badge/Paper_PDF-arXiv-red"></a>
+  <a href="#" target="_blank"><img src="https://img.shields.io/badge/Online_Demo-TODO-yellow"></a>
+</div>
 
-> Aligning text-to-image diffusion models with downstream objectives (e.g., aesthetic quality or user preferences) is essential for their practical applications. However, standard alignment methods often struggle with ***step generalization*** when directly applied to ***few-step diffusion models***, leading to inconsistent performance across different denoising step scenarios. To address this, we introduce SDPO, which facilitates stepwise optimization of few-step diffusion models through dense reward difference learning, consistently exhibiting superior performance in reward-based alignment across all sampling steps.
+This repository contains a PyTorch implementation of **Stepwise Diffusion Policy Optimization (SDPO)**, as presented in our paper [*Aligning Few-Step Diffusion Models with Dense Reward Difference Learning*](https://arxiv.org/abs/2411.11727).
 
-- **SDPO framework:**
+## 🔥 News
 
-![SDPO](./figures/SDPO.png)
+- **[2026.02]** Our paper has been accepted by **IEEE TPAMI** 🎉🎉🎉
 
-- **Reward curves on Aesthetic Score:**
+## 📖 Overview
 
-![reward_curves](./figures/reward_curves.png)
+**SDPO** is a novel reinforcement learning framework tailored for aligning few-step diffusion models with downstream objectives.
 
-## Installation
+> Few-step diffusion models enable efficient high-resolution image synthesis but struggle to align with specific downstream objectives due to limitations of existing reinforcement learning (RL) methods in low-step regimes with limited state spaces and suboptimal sample quality. To address this, we propose Stepwise Diffusion Policy Optimization (SDPO), a novel RL framework tailored for few-step diffusion models. SDPO introduces a dual-state trajectory sampling mechanism, tracking both noisy and predicted clean states at each step to provide dense reward feedback and enable low-variance, mixed-step optimization. For further efficiency, we develop a latent similarity-based dense reward prediction strategy to minimize costly dense reward queries. Leveraging these dense rewards, SDPO optimizes a dense reward difference learning objective that enables more frequent and granular policy updates. Additional refinements, including stepwise advantage estimates, temporal importance weighting, and step-shuffled gradient updates, further enhance long-term dependency, low-step priority, and gradient stability. Our experiments demonstrate that SDPO consistently delivers superior reward-aligned results across diverse few-step settings and tasks.
 
-- Python 3.10 or a newer version is required. 
+<div align="center">
+  <img src="./assets/sdpo.png" alt="SDPO Framework">
+  <p><em>Overall framework of Stepwise Diffusion Policy Optimization (SDPO)</em></p>
+</div>
 
-- It is recommended to create a conda environment and install the project dependencies via `setup.py`:
+<div align="center">
+  <img src="./assets/reward_curves.png" alt="Reward Curves">
+  <p><em>Reward curves for low-step samples in SD-Turbo finetuning</em></p>
+</div>
+
+## 🛠️ Installation
+
+To set up this repository, clone it, create a new conda environment, and install all dependencies within it:
 
 ```bash
-# Create a new conda environment
-conda create -p sdpo python=3.10.12 -y
+# Clone this repository
+git clone https://github.com/ZiyiZhang27/sdpo.git
+cd sdpo
 
-# Activate the newly created conda environment
+# Create and activate a new conda environment (Python 3.10+)
+conda create -n sdpo python=3.10 -y
 conda activate sdpo
 
-# Navigate to the project’s root directory (replace with the actual path)
-cd /path/to/project
-
-# Install the project dependencies
+# Install dependencies
 pip install -e .
-```
 
-## Usage
-
-We use `accelerate` to enable distributed training. Before running the code, ensure `accelerate` is properly configured for your system:
-
-```bash
+# Configure accelerate based on your hardware setup
 accelerate config
 ```
 
-Use the following commands to run SDPO with different reward functions:
+## 🚀 Quick Start
+
+We provide pre-configured setups for multiple reward functions. Choose one of the following commands to start running SDPO:
 
 - **Aesthetic Score:**
 
@@ -66,29 +76,34 @@ Use the following commands to run SDPO with different reward functions:
     accelerate launch scripts/train_sdpo.py --config config/config_sdpo.py:pickscore
     ```
 
-For detailed explanations of the hyperparameters, please refer to the following configuration files:
-- `config/base_sdpo.py`
-- `config/config_sdpo.py`
+💡 **Tip**: You can modify hyperparameters in the configuration files as needed:
 
-These files are pre-configured for training on 4 GPUs, each with at least 24GB of memory. If a hyperparameter is defined in both configuration files, the value in `config/config_sdpo.py` will take precedence.
+- **[config/base_sdpo.py](config/base_sdpo.py)** - Base configuration with default values
 
-## Citation
+- **[config/config_sdpo.py](config/config_sdpo.py)** - Task-specific configurations
 
-If you find this work useful in your research, please consider citing:
+> **Note**: Values in [config/base_sdpo.py](config/base_sdpo.py) override those in [config/config_sdpo.py](config/config_sdpo.py). The default configuration is optimized for 4× GPUs with 24GB+ memory each. Adjust batch sizes and gradient accumulation steps based on your hardware.
+
+## 📝 Citation
+
+If you find this work useful in your research, please consider citing our paper:
 
 ```bibtex
-@article{zhang2024sdpo,
+@article{zhang2026sdpo,
   title={Aligning Few-Step Diffusion Models with Dense Reward Difference Learning},
-  author={Ziyi Zhang and Li Shen and Sen Zhang and Deheng Ye and Yong Luo and Miaojing Shi and Bo Du and Dacheng Tao},
-  journal={arXiv preprint arXiv:2411.11727},
-  year={2024}
+  author={Zhang, Ziyi and Shen, Li and Zhang, Sen and Ye, Deheng and Luo, Yong and Shi, Miaojing and Shan, Dongjing and Du, Bo and Tao, Dacheng},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2026}
 }
 ```
 
-## Acknowledgement
+## 🙏 Acknowledgements
 
-- This repository builds upon the [PyTorch implementation of DDPO](https://github.com/kvablack/ddpo-pytorch) developed by [Kevin Black](https://github.com/kvablack) and his team. We sincerely appreciate their contributions to the field.
+This repository builds upon several excellent open-source projects:
 
-- We extend our gratitude to the authors of [D3PO](https://github.com/yk7333/d3po) for open-sourcing their work, as well as to [Owen Oertell](https://github.com/Owen-Oertell) for supporting our experiments on [RLCM](https://github.com/Owen-Oertell/rlcm), which includes implementations of [DDPO](https://openreview.net/forum?id=YCWjhGrJFD) and [REBEL](https://arxiv.org/abs/2404.16767) for finetuning [LCM](https://huggingface.co/SimianLuo/LCM_Dreamshaper_v7).
+- **[DDPO-PyTorch](https://github.com/kvablack/ddpo-pytorch)** - Foundation for RL-based diffusion model finetuning
+- **[D3PO](https://github.com/yk7333/d3po)** - Foundation for DPO-based diffusion model finetuning
+- **[RLCM](https://github.com/Owen-Oertell/rlcm)** - [DDPO](https://openreview.net/forum?id=YCWjhGrJFD) and [REBEL](https://github.com/ZhaolinGao/REBEL) implementations for [LCM](https://huggingface.co/SimianLuo/LCM_Dreamshaper_v7) finetuning
+- **[ImageReward](https://github.com/THUDM/ImageReward)**, **[HPSv2](https://github.com/tgxs002/HPSv2)**, and **[PickScore](https://github.com/yuvalkirstain/PickScore)** - Reward function implementations
 
-- We also acknowledge the valuable contributions of the [ImageReward](https://github.com/THUDM/ImageReward), [HPSv2](https://github.com/tgxs002/HPSv2), and [PickScore](https://github.com/yuvalkirstain/PickScore) projects to this work.
+We thank the authors of these projects for their valuable contributions to the community.
