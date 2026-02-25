@@ -1,12 +1,12 @@
 # Stepwise Diffusion Policy Optimization (SDPO)
 
 <div align="left">
-<a href="#" target="_blank"><img src="https://img.shields.io/badge/Paper_Link-IEEE_TPAMI-blue"></a>
+  <a href="https://ieeexplore.ieee.org/document/11408100" target="_blank"><img src="https://img.shields.io/badge/Paper_Link-IEEE_TPAMI-blue"></a>
   <a href="https://arxiv.org/pdf/2411.11727" target="_blank"><img src="https://img.shields.io/badge/Paper_PDF-arXiv-red"></a>
   <a href="#" target="_blank"><img src="https://img.shields.io/badge/Online_Demo-TODO-yellow"></a>
 </div>
 
-This repository contains a PyTorch implementation of **Stepwise Diffusion Policy Optimization (SDPO)**, as presented in our paper [*Aligning Few-Step Diffusion Models with Dense Reward Difference Learning*](https://arxiv.org/abs/2411.11727).
+This repository contains a PyTorch implementation of **Stepwise Diffusion Policy Optimization (SDPO)**, as presented in our paper [*Aligning Few-Step Diffusion Models with Dense Reward Difference Learning*](https://ieeexplore.ieee.org/document/11408100).
 
 ## 🔥 News
 
